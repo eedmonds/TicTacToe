@@ -38,47 +38,51 @@ public class TicTacToeTest {
         assertEquals("Congratulations player X! You've won. Refresh to play again!", ticTacToePage.getGameResultMessage());
     }
 
+    @Test
+    public void testOWins() {
 
+        ticTacToePage.navigateTo();
+        ticTacToePage.enterNumber(3);
+        ticTacToePage.play();
 
-@Test
-public void testOWins() {
+        // O wins by filling a column
+        ticTacToePage.enterMove(0); //X
+        ticTacToePage.enterMove(2); //O
+        ticTacToePage.enterMove(7); //X
+        ticTacToePage.enterMove(4); //O
+        ticTacToePage.enterMove(3); //X
+        ticTacToePage.enterMove(6); //O
 
-    ticTacToePage.navigateTo();
-    ticTacToePage.enterNumber(3);
-    ticTacToePage.play();
+        // Assert that the game declares "O" as the winner
+        assertEquals("Congratulations player O! You've won. Refresh to play again!", ticTacToePage.getGameResultMessage());
+    }
 
-    // O wins by filling a column
-    ticTacToePage.enterMove(0); //X
-    ticTacToePage.enterMove(2); //O
-    ticTacToePage.enterMove(7); //X
-    ticTacToePage.enterMove(4); //O
-    ticTacToePage.enterMove(3); //X
-    ticTacToePage.enterMove(6); //O
+    @Test
+    public void testDraw() {
+        ticTacToePage.navigateTo();
+        ticTacToePage.enterNumber(3);
+        ticTacToePage.play();
 
-    // Assert that the game declares "O" as the winner
-    assertEquals("Congratulations player O! You've won. Refresh to play again!", ticTacToePage.getGameResultMessage());
-}
+        // Play a sequence of moves resulting in a draw
+        ticTacToePage.enterMove(0); //X
+        ticTacToePage.enterMove(2); //O
+        ticTacToePage.enterMove(1); //X
+        ticTacToePage.enterMove(3); //0
+        ticTacToePage.enterMove(5); //X
+        ticTacToePage.enterMove(4); //O
+        ticTacToePage.enterMove(6); //X
+        ticTacToePage.enterMove(8); //O
+        ticTacToePage.enterMove(7); //X
 
-@Test
-public void testDraw() {
-    ticTacToePage.navigateTo();
-    ticTacToePage.enterNumber(3);
-    ticTacToePage.play();
-
-    // Play a sequence of moves resulting in a draw
-    ticTacToePage.enterMove(0); //X
-    ticTacToePage.enterMove(2); //O
-    ticTacToePage.enterMove(1); //X
-    ticTacToePage.enterMove(3);//0
-    ticTacToePage.enterMove(5); //X
-    ticTacToePage.enterMove(4); //O
-    ticTacToePage.enterMove(6); //X
-    ticTacToePage.enterMove(8); //O
-    ticTacToePage.enterMove(7); //X
-
-    // Assert that the game declares a draw
-    assertEquals("It's a draw!", ticTacToePage.getGameResultMessage());
-}
+        // Assert that the game declares a draw
+        assertEquals("It's a draw!", ticTacToePage.getGameResultMessage());
+    }
+    @Test
+    public void testReset(){
+        ticTacToePage.navigateTo();
+        ticTacToePage.enterNumber(3);
+        ticTacToePage.play();
+    }
 
     @After
     public void tearDown() {
